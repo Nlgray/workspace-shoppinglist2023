@@ -1,3 +1,4 @@
+
 <head>
   <meta charset="utf-8" />
   <title>To Do List</title>
@@ -36,24 +37,53 @@
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-compat.js"></script>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAzcwgZuLA7dO9g4sQhXQVTUgCo0M8m2qM",
-      authDomain: "grocerylist-91956.firebaseapp.com",
-      databaseURL: "https://grocerylist-91956.firebaseio.com",
-      projectId: "grocerylist-91956",
-      storageBucket: "grocerylist-91956.appspot.com",
-      messagingSenderId: "813812426276",
-      appId: "1:813812426276:web:93e5897af12892ff78dab1",
-      measurementId: "G-VZ83BTR72T"
-    }; 
+  const firebaseConfig = {
+    apiKey: "AIzaSyD886zVo5WZzuRYSgPYIoUCPvL6pqqnph4",
+    authDomain: "database2023-d1b25.firebaseapp.com",
+    projectId: "database2023-d1b25",
+    storageBucket: "database2023-d1b25.appspot.com",
+    messagingSenderId: "8989823922",
+    appId: "1:8989823922:web:7543d0ae15d687e2c1caab",
+    measurementId: "G-97HKVSTNR9"
+  };
     // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
 
+      //read the data from the database and update the list
+      $('li').remove();
+      db.collection("shoppinglist").get().then((querySnapshot)=>{
+        console.log(querySnapshot);
+        var newlist ="";
+querySnapshot.forEach((doc) => {
+  var item = doc.data().item;
+  console.log("loading.....",item);
+  newlist +="<li class='cool'>"+item+"</li>"
+
+  
+});
+$('#todo').append(newlist)
+//make it clickable
+
+
+      });
+      
+
     // Save the list to database
+    $("#save").click(function(){
+      //testing if the database is connected
+      //clear database before save
+      $('li').each(function(){
+var value = $(this).text();
+console.log("saving",value);
+db.collection("shoppingllist").add({item:"pair"});
+
+      });
+
+      //db.collection("shoppinglist").add({item:"apple"});
+
+
+    });
 
 
   </script>
-
-
-</body>
